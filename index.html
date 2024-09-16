@@ -55,42 +55,29 @@
             padding: 20px;
         }
 
-        .story, .photo-gallery {
+        .story {
             margin: 30px 0;
         }
 
-        .photo-gallery {
+        .slider {
             position: relative;
             width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
             overflow: hidden;
         }
 
-        .photos {
+        .slides {
             display: flex;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            white-space: nowrap;
-            padding: 10px 0;
-            gap: 10px;
+            transition: transform 0.5s ease-in-out;
         }
 
-        .photos img {
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            flex-shrink: 0;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            transform: scale(0.9);
+        .slides img {
+            width: 100%;
+            height: auto;
         }
 
-        .photos img.active {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-        }
-
-        .photo-gallery .arrow {
+        .arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -102,16 +89,12 @@
             z-index: 10;
         }
 
-        .photo-gallery .arrow.left {
+        .arrow.left {
             left: 10px;
         }
 
-        .photo-gallery .arrow.right {
+        .arrow.right {
             right: 10px;
-        }
-
-        .photo-gallery::-webkit-scrollbar {
-            display: none;
         }
 
         .countdown {
@@ -167,8 +150,7 @@
                 font-size: 1.5rem;
             }
 
-            .photos img {
-                width: 150px;
+            .slides img {
                 height: 150px;
             }
 
@@ -190,8 +172,7 @@
                 font-size: 1.2rem;
             }
 
-            .photos img {
-                width: 120px;
+            .slides img {
                 height: 120px;
             }
 
@@ -221,15 +202,15 @@
                 <p>From strangers to soulmates, our journey has been filled with love and laughter. We can't wait to start our next chapter together!</p>
             </div>
 
-            <div class="photo-gallery">
-                <button class="arrow left" onclick="scrollLeft()">&#10094;</button>
-                <div class="photos">
+            <div class="slider">
+                <button class="arrow left" onclick="prevSlide()">&#10094;</button>
+                <div class="slides">
                     <img src="Pic%201.png" alt="Soumi & Suryaprakash">
                     <img src="Pic%202.png" alt="Memorable Moment">
                     <img src="Pic%203.png" alt="Happy Together">
                     <img src="Pic%204.png" alt="Beautiful Memory">
                 </div>
-                <button class="arrow right" onclick="scrollRight()">&#10095;</button>
+                <button class="arrow right" onclick="nextSlide()">&#10095;</button>
             </div>
 
             <h3>Venue Location</h3>
@@ -264,45 +245,29 @@
             }
         }, 1000);
 
-        // JavaScript for gallery navigation
-        function scrollLeft() {
-            const container = document.querySelector('.photo-gallery .photos');
-            container.scrollBy({
-                left: -container.clientWidth / 2,
-                behavior: 'smooth'
-            });
+        // JavaScript for image slider
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelector('.slides');
+            const totalSlides = document.querySelectorAll('.slides img').length;
+            if (index >= totalSlides) {
+                currentIndex = 0;
+            } else if (index < 0) {
+                currentIndex = totalSlides - 1;
+            } else {
+                currentIndex = index;
+            }
+            slides.style.transform = `translateX(${-currentIndex * 100}%)`;
         }
 
-        function scrollRight() {
-            const container = document.querySelector('.photo-gallery .photos');
-            container.scrollBy({
-                left: container.clientWidth / 2,
-                behavior: 'smooth'
-            });
+        function nextSlide() {
+            showSlide(currentIndex + 1);
         }
 
-        // JavaScript to highlight the current image
-        document.addEventListener("DOMContentLoaded", function() {
-            const photosContainer = document.querySelector('.photos');
-            const photos = document.querySelectorAll('.photos img');
-            let currentIndex = 0;
-
-            function updateActiveImage() {
-                photos.forEach((img, index) => {
-                    img.classList.toggle('active', index === currentIndex);
-                });
-            }
-
-            function setActiveImage() {
-                const imageWidth = photos[0].clientWidth + 20; // width of image + margin
-                const scrollPosition = photosContainer.scrollLeft;
-                currentIndex = Math.round(scrollPosition / imageWidth);
-                updateActiveImage();
-            }
-
-            photosContainer.addEventListener('scroll', setActiveImage);
-            updateActiveImage();
-        });
+        function prevSlide() {
+            showSlide(currentIndex - 1);
+        }
     </script>
 
     <!-- Include Font Awesome for the heart icons -->
