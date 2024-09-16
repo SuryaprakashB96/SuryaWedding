@@ -55,47 +55,47 @@
             padding: 20px;
         }
 
-        .story, .photos {
+        .story, .photo-gallery {
             margin: 30px 0;
         }
 
         /* Make the photos container horizontally scrollable */
-       .photo-gallery {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-}
+        .photo-gallery {
+            position: relative;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            padding: 10px 0;
+        }
 
-.photos {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    white-space: nowrap;
-}
+        .photos {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
 
-.photos img {
-    margin: 0 10px;
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
-    flex-shrink: 0; /* Prevent images from shrinking */
-    /* Add styles for the current image highlight */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    transform: scale(0.9);
-}
+        .photos img {
+            margin: 0 10px;
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transform: scale(0.9);
+        }
 
-.photos img.active {
-    transform: scale(1.1); /* Highlight the current image */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-}
+        .photos img.active {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+        }
 
-/* Add style for images outside the viewport */
-.photos::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for a cleaner look */
-}
-
+        /* Hide scrollbar for a cleaner look */
+        .photo-gallery::-webkit-scrollbar {
+            display: none;
+        }
 
         .countdown {
             font-size: 2rem;
