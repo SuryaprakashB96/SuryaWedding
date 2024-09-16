@@ -180,6 +180,72 @@
                 height: 250px;
             }
         }
+        .countdown {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.time-unit {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    width: 80px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    position: relative;
+    padding: 10px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.label {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .time-unit {
+        width: 60px;
+        height: 90px;
+    }
+
+    .number {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .time-unit {
+        width: 50px;
+        height: 80px;
+    }
+
+    .number {
+        font-size: 2rem;
+    }
+}
+
 
     </style>
 </head>
@@ -191,16 +257,33 @@
     </header>
 
     <section>
-        <div class="container">
-            <h2>We Are Getting Married!</h2>
-            <p>We are so excited to celebrate our special day with you. Join us for the most memorable day of our lives!</p>
+       <div class="container">
+        <h2>We Are Getting Married!</h2>
+        <p>We are so excited to celebrate our special day with you. Join us for the most memorable day of our lives!</p>
 
-            <div class="countdown" id="countdown"></div>
-
-            <div class="story">
-                <h3>Our Story</h3>
-                <p>From strangers to soulmates, our journey has been filled with love and laughter. We can't wait to start our next chapter together!</p>
+        <div class="countdown" id="countdown">
+            <div class="timer">
+                <div class="time-unit" id="days">
+                    <div class="number">00</div>
+                    <div class="label">Days</div>
+                </div>
+                <div class="time-unit" id="hours">
+                    <div class="number">00</div>
+                    <div class="label">Hours</div>
+                </div>
+                <div class="time-unit" id="minutes">
+                    <div class="number">00</div>
+                    <div class="label">Minutes</div>
+                </div>
+                <div class="time-unit" id="seconds">
+                    <div class="number">00</div>
+                    <div class="label">Seconds</div>
+                </div>
             </div>
+        </div>
+
+        <!-- Other sections like story, photos, and venue location -->
+    </div>
 
             <div class="slider">
                 <button class="arrow left" onclick="prevSlide()">&#10094;</button>
@@ -226,24 +309,36 @@
     <script>
         // Countdown Timer Script
         const countdown = document.getElementById("countdown");
-        const weddingDate = new Date("November 17, 2024 10:00:00").getTime();
+const daysEl = document.getElementById("days").querySelector(".number");
+const hoursEl = document.getElementById("hours").querySelector(".number");
+const minutesEl = document.getElementById("minutes").querySelector(".number");
+const secondsEl = document.getElementById("seconds").querySelector(".number");
 
-        const x = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
+const weddingDate = new Date("November 17, 2024 10:00:00").getTime();
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+const x = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
 
-            countdown.innerHTML = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            if (distance < 0) {
-                clearInterval(x);
-                countdown.innerHTML = "The big day is here!";
-            }
-        }, 1000);
+    daysEl.innerHTML = formatNumber(days);
+    hoursEl.innerHTML = formatNumber(hours);
+    minutesEl.innerHTML = formatNumber(minutes);
+    secondsEl.innerHTML = formatNumber(seconds);
+
+    if (distance < 0) {
+        clearInterval(x);
+        countdown.innerHTML = "The big day is here!";
+    }
+}, 1000);
+
+function formatNumber(num) {
+    return num < 10 ? '0' + num : num;
+}
 
         // JavaScript for image slider
         let currentIndex = 0;
