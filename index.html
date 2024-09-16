@@ -60,27 +60,42 @@
         }
 
         /* Make the photos container horizontally scrollable */
-        .photos {
-            display: flex;
-            overflow-x: auto;
-            padding: 10px 0;
-            scroll-behavior: smooth;
-            white-space: nowrap; /* Ensure photos stay in a single line */
-        }
+       .photo-gallery {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
 
-        .photos img {
-            margin: 10px;
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 10px;
-            flex-shrink: 0; /* Prevent images from shrinking */
-            transition: transform 0.3s ease;
-        }
+.photos {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+}
 
-        .photos img:hover {
-            transform: scale(1.1);
-        }
+.photos img {
+    margin: 0 10px;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0; /* Prevent images from shrinking */
+    /* Add styles for the current image highlight */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transform: scale(0.9);
+}
+
+.photos img.active {
+    transform: scale(1.1); /* Highlight the current image */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+
+/* Add style for images outside the viewport */
+.photos::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for a cleaner look */
+}
+
 
         .countdown {
             font-size: 2rem;
@@ -210,7 +225,7 @@
     <footer>
         <p><i class="fas fa-heart"></i>Soumi & Suryaprakash | November 17th, 2024 | Sivakasi Industries Charities Kalyana Mandapam<i class="fas fa-heart"></i></p>
     </footer>
-
+<script src="gallery.js"></script>
     <script>
         // Countdown Timer Script
         const countdown = document.getElementById("countdown");
