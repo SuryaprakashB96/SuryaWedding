@@ -63,18 +63,18 @@
             position: relative;
             width: 100%;
             overflow: hidden;
-            white-space: nowrap;
         }
 
         .photos {
             display: flex;
-            align-items: center;
-            flex-wrap: nowrap;
-            transition: transform 0.3s ease;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            white-space: nowrap;
+            padding: 10px 0;
+            gap: 10px;
         }
 
         .photos img {
-            margin: 0 10px;
             width: 250px;
             height: 250px;
             object-fit: cover;
@@ -154,7 +154,6 @@
             background: #fff;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -243,7 +242,6 @@
         <p><i class="fas fa-heart"></i>Soumi & Suryaprakash | November 17th, 2024 | Sivakasi Industries Charities Kalyana Mandapam<i class="fas fa-heart"></i></p>
     </footer>
 
-    <script src="gallery.js"></script>
     <script>
         // Countdown Timer Script
         const countdown = document.getElementById("countdown");
