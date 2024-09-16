@@ -97,7 +97,6 @@
             right: 10px;
         }
 
-
         iframe {
             margin-top: 20px;
             border: none;
@@ -176,103 +175,98 @@
                 height: 250px;
             }
         }
+
         .countdown {
-    font-family: 'Arial', sans-serif;
-    font-size: 1.2rem;
-    text-align: center;
-}
+            font-family: 'Arial', sans-serif;
+            font-size: 1.2rem;
+            text-align: center;
+        }
 
-.timer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
+        .timer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
 
-.time-unit {
-    position: relative;
-    width: 80px;
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    perspective: 1000px; /* Add perspective for the flip effect */
-}
+        .time-unit {
+            position: relative;
+            width: 80px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px; /* Add perspective for the flip effect */
+        }
 
-.time-unit .number {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    border: 2px solid #333;
-    border-radius: 10px;
-    text-align: center;
-    line-height: 120px; /* Center the text vertically */
-    transition: transform 0.6s ease;
-    transform-style: preserve-3d; /* Enable 3D transformations */
-}
+        .time-unit .number-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d; /* Enable 3D transformations */
+        }
 
-.number.flip {
-    transform: rotateX(180deg);
-}
+        .number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border: 2px solid #333;
+            border-radius: 10px;
+            text-align: center;
+            line-height: 120px; /* Center the text vertically */
+            backface-visibility: hidden;
+            transition: transform 0.6s ease;
+        }
 
-.number::before, .number::after {
-    content: attr(data-number);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    line-height: 120px; /* Center the text vertically */
-    background: #fff;
-    border: 2px solid #333;
-    border-radius: 10px;
-    backface-visibility: hidden;
-}
+        .number.front {
+            transform: rotateX(0deg);
+        }
 
-.number::before {
-    z-index: 2;
-    transform: rotateX(0deg);
-}
+        .number.back {
+            transform: rotateX(180deg);
+        }
 
-.number::after {
-    transform: rotateX(180deg);
-}
+        .number.flip .front {
+            transform: rotateX(-180deg);
+        }
 
-.label {
-    font-size: 1rem;
-    color: #666;
-}
+        .number.flip .back {
+            transform: rotateX(0deg);
+        }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .time-unit {
-        width: 60px;
-        height: 90px;
-    }
+        .label {
+            font-size: 1rem;
+            color: #666;
+        }
 
-    .number {
-        font-size: 2.5rem;
-    }
-}
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .time-unit {
+                width: 60px;
+                height: 90px;
+            }
 
-@media (max-width: 480px) {
-    .time-unit {
-        width: 50px;
-        height: 80px;
-    }
+            .number {
+                font-size: 2.5rem;
+            }
+        }
 
-    .number {
-        font-size: 2rem;
-    }
-}
+        @media (max-width: 480px) {
+            .time-unit {
+                width: 50px;
+                height: 80px;
+            }
 
-
-
+            .number {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -288,28 +282,37 @@
         <p>We are so excited to celebrate our special day with you. Join us for the most memorable day of our lives!</p>
 
         <div class="countdown" id="countdown">
-            <div class="timer">
-                <div class="time-unit" id="days">
-                    <div class="number">00</div>
-                    <div class="label">Days</div>
-                </div>
-                <div class="time-unit" id="hours">
-                    <div class="number">00</div>
-                    <div class="label">Hours</div>
-                </div>
-                <div class="time-unit" id="minutes">
-                    <div class="number">00</div>
-                    <div class="label">Minutes</div>
-                </div>
-                <div class="time-unit" id="seconds">
-                    <div class="number">00</div>
-                    <div class="label">Seconds</div>
+                <div class="timer">
+                    <div class="time-unit" id="days">
+                        <div class="number-wrapper">
+                            <div class="number front">00</div>
+                            <div class="number back">00</div>
+                        </div>
+                        <div class="label">Days</div>
+                    </div>
+                    <div class="time-unit" id="hours">
+                        <div class="number-wrapper">
+                            <div class="number front">00</div>
+                            <div class="number back">00</div>
+                        </div>
+                        <div class="label">Hours</div>
+                    </div>
+                    <div class="time-unit" id="minutes">
+                        <div class="number-wrapper">
+                            <div class="number front">00</div>
+                            <div class="number back">00</div>
+                        </div>
+                        <div class="label">Minutes</div>
+                    </div>
+                    <div class="time-unit" id="seconds">
+                        <div class="number-wrapper">
+                            <div class="number front">00</div>
+                            <div class="number back">00</div>
+                        </div>
+                        <div class="label">Seconds</div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Other sections like story, photos, and venue location -->
-    </div>
 
             <div class="slider">
                 <button class="arrow left" onclick="prevSlide()">&#10094;</button>
@@ -333,12 +336,11 @@
     </footer>
 
     <script>
-        // Countdown Timer Script
         const countdown = document.getElementById("countdown");
-const daysEl = document.getElementById("days").querySelector(".number");
-const hoursEl = document.getElementById("hours").querySelector(".number");
-const minutesEl = document.getElementById("minutes").querySelector(".number");
-const secondsEl = document.getElementById("seconds").querySelector(".number");
+const daysEl = document.getElementById("days").querySelector(".number-wrapper");
+const hoursEl = document.getElementById("hours").querySelector(".number-wrapper");
+const minutesEl = document.getElementById("minutes").querySelector(".number-wrapper");
+const secondsEl = document.getElementById("seconds").querySelector(".number-wrapper");
 
 const weddingDate = new Date("November 17, 2024 10:00:00").getTime();
 
@@ -362,13 +364,19 @@ function updateCountdown() {
     }
 }
 
-function updateTimeUnit(element, newValue) {
-    const oldValue = element.innerHTML;
-    if (oldValue !== newValue) {
-        element.classList.add("flip");
+function updateTimeUnit(wrapper, newValue) {
+    const front = wrapper.querySelector('.number.front');
+    const back = wrapper.querySelector('.number.back');
+
+    if (front.innerHTML !== newValue) {
+        front.classList.add("flip");
+        back.classList.add("flip");
+
         setTimeout(() => {
-            element.innerHTML = newValue;
-            element.classList.remove("flip");
+            front.innerHTML = newValue;
+            back.innerHTML = newValue;
+            front.classList.remove("flip");
+            back.classList.remove("flip");
         }, 300); // Duration of flip animation
     }
 }
