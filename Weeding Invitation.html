@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soumi & Suryaprakash's Wedding</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #f9f9f9, #fff);
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff9494, #ff5a5a);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        p.date {
+            font-size: 1.5rem;
+            font-style: italic;
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 10px;
+            background: #fff;
+        }
+
+        section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .story, .photos {
+            margin: 30px 0;
+        }
+
+        /* Make the photos container horizontally scrollable */
+        .photos {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            scroll-behavior: smooth;
+            white-space: nowrap; /* Ensure photos stay in a single line */
+        }
+
+        .photos img {
+            margin: 10px;
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            flex-shrink: 0; /* Prevent images from shrinking */
+            transition: transform 0.3s ease;
+        }
+
+        .photos img:hover {
+            transform: scale(1.1);
+        }
+
+        .countdown {
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        iframe {
+            margin-top: 20px;
+            border: none;
+            width: 100%;
+            height: 400px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #ff5a5a, #ff9494);
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        footer i {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 10px;
+            background: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            p.date {
+                font-size: 1.2rem;
+            }
+
+            .countdown {
+                font-size: 1.5rem;
+            }
+
+            .photos img {
+                width: 150px;
+                height: 150px;
+            }
+
+            iframe {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            p.date {
+                font-size: 1rem;
+            }
+
+            .countdown {
+                font-size: 1.2rem;
+            }
+
+            .photos img {
+                width: 120px;
+                height: 120px;
+            }
+
+            iframe {
+                height: 250px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Soumi & Suryaprakash</h1>
+        <p class="date">November 17th, 2024 | 10:00 AM IST</p>
+    </header>
+
+    <section>
+        <div class="container">
+            <h2>We Are Getting Married!</h2>
+            <p>We are so excited to celebrate our special day with you. Join us for the most memorable day of our lives!</p>
+
+            <div class="countdown" id="countdown"></div>
+
+            <div class="story">
+                <h3>Our Story</h3>
+                <p>From strangers to soulmates, our journey has been filled with love and laughter. We can't wait to start our next chapter together!</p>
+            </div>
+
+            <div class="photos">
+                <h3>Our Memories</h3>
+                <!-- Replace the source paths with the correct URLs of your photos -->
+                <img src="C:\Users\Vigneswaran\Downloads\DSC_9726.JPG" alt="Soumi & Suryaprakash">
+                <img src="C:\Users\Vigneswaran\Downloads\DSC_9635.JPG" alt="Memorable Moment">
+                <img src="C:\Users\Vigneswaran\Downloads\DSC_0256.JPG" alt="Happy Together">
+                <img src="C:\Users\Vigneswaran\Downloads\DSC_9917.JPG" alt="Beautiful Memory">
+            </div>
+
+            <h3>Venue Location</h3>
+            <iframe 
+                src="https://maps.google.com/maps?q=Sivakasi%20Industries%20Charities%20Kalyana%20Mandapam&t=&z=13&ie=UTF8&iwloc=&output=embed">
+            </iframe>
+
+        </div>
+    </section>
+
+    <footer>
+        <p><i class="fas fa-heart"></i>Soumi & Suryaprakash | November 17th, 2024 | Sivakasi Industries Charities Kalyana Mandapam<i class="fas fa-heart"></i></p>
+    </footer>
+
+    <script>
+        // Countdown Timer Script
+        const countdown = document.getElementById("countdown");
+        const weddingDate = new Date("November 17, 2024 10:00:00").getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdown.innerHTML = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            if (distance < 0) {
+                clearInterval(x);
+                countdown.innerHTML = "The big day is here!";
+            }
+        }, 1000);
+    </script>
+
+    <!-- Include Font Awesome for the heart icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+</body>
+</html>
