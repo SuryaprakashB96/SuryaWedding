@@ -59,20 +59,18 @@
             margin: 30px 0;
         }
 
-        /* Make the photos container horizontally scrollable */
         .photo-gallery {
             position: relative;
             width: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
+            overflow: hidden;
             white-space: nowrap;
-            padding: 10px 0;
         }
 
         .photos {
             display: flex;
             align-items: center;
             flex-wrap: nowrap;
+            transition: transform 0.3s ease;
         }
 
         .photos img {
@@ -92,7 +90,26 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
         }
 
-        /* Hide scrollbar for a cleaner look */
+        .photo-gallery .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .photo-gallery .arrow.left {
+            left: 10px;
+        }
+
+        .photo-gallery .arrow.right {
+            right: 10px;
+        }
+
         .photo-gallery::-webkit-scrollbar {
             display: none;
         }
@@ -206,13 +223,14 @@
             </div>
 
             <div class="photo-gallery">
-                <h3>Our Memories</h3>
+                <button class="arrow left" onclick="scrollLeft()">&#10094;</button>
                 <div class="photos">
                     <img src="Pic%201.png" alt="Soumi & Suryaprakash">
                     <img src="Pic%202.png" alt="Memorable Moment">
                     <img src="Pic%203.png" alt="Happy Together">
                     <img src="Pic%204.png" alt="Beautiful Memory">
                 </div>
+                <button class="arrow right" onclick="scrollRight()">&#10095;</button>
             </div>
 
             <h3>Venue Location</h3>
@@ -247,6 +265,46 @@
                 countdown.innerHTML = "The big day is here!";
             }
         }, 1000);
+
+        // JavaScript for gallery navigation
+        function scrollLeft() {
+            const container = document.querySelector('.photo-gallery .photos');
+            container.scrollBy({
+                left: -container.clientWidth / 2,
+                behavior: 'smooth'
+            });
+        }
+
+        function scrollRight() {
+            const container = document.querySelector('.photo-gallery .photos');
+            container.scrollBy({
+                left: container.clientWidth / 2,
+                behavior: 'smooth'
+            });
+        }
+
+        // JavaScript to highlight the current image
+        document.addEventListener("DOMContentLoaded", function() {
+            const photosContainer = document.querySelector('.photos');
+            const photos = document.querySelectorAll('.photos img');
+            let currentIndex = 0;
+
+            function updateActiveImage() {
+                photos.forEach((img, index) => {
+                    img.classList.toggle('active', index === currentIndex);
+                });
+            }
+
+            function setActiveImage() {
+                const imageWidth = photos[0].clientWidth + 20; // width of image + margin
+                const scrollPosition = photosContainer.scrollLeft;
+                currentIndex = Math.round(scrollPosition / imageWidth);
+                updateActiveImage();
+            }
+
+            photosContainer.addEventListener('scroll', setActiveImage);
+            updateActiveImage();
+        });
     </script>
 
     <!-- Include Font Awesome for the heart icons -->
