@@ -28,10 +28,16 @@
             position: relative;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        header::After{
-            opacity: 0.6;
-        }
-
+        header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the color and opacity */
+    z-index: -1; /* Ensure it stays behind the content */
+}
         h1 {
             margin: 0;
             font-size: 3rem;
